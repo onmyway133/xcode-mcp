@@ -31,6 +31,14 @@
     ],
     "author": "Khoa Pham",
     "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/onmyway133/xcode-mcp.git"
+    },
+    "homepage": "https://github.com/onmyway133/xcode-mcp",
+    "bugs": {
+        "url": "https://github.com/onmyway133/xcode-mcp/issues"
+    },
     "dependencies": {
         "@modelcontextprotocol/sdk": "^1.25.1",
         "zod": "^4.2.1"
