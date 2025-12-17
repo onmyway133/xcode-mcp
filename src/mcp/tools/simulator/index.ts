@@ -1,0 +1,46 @@
+import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
+import { registerListSimulators } from './list-simulators.js';
+import { registerListRuntimes } from './list-runtimes.js';
+import { registerListDeviceTypes } from './list-device-types.js';
+import { registerBootSimulator } from './boot-simulator.js';
+import { registerShutdownSimulator } from './shutdown-simulator.js';
+import { registerCreateSimulator } from './create-simulator.js';
+import { registerDeleteSimulator } from './delete-simulator.js';
+import { registerEraseSimulator } from './erase-simulator.js';
+import { registerInstallApp } from './install-app.js';
+import { registerLaunchApp } from './launch-app.js';
+import { registerTerminateApp } from './terminate-app.js';
+import { registerUninstallApp } from './uninstall-app.js';
+import { registerScreenshot } from './screenshot.js';
+import { registerOpenUrl } from './open-url.js';
+import { registerSetLocation } from './set-location.js';
+import { registerPushNotification } from './push-notification.js';
+import { registerAddMedia } from './add-media.js';
+import { registerGetAppContainer } from './get-app-container.js';
+import { registerSetStatusBar } from './set-status-bar.js';
+import { registerPrivacy } from './privacy.js';
+import { registerGetLogs } from './get-logs.js';
+
+export function registerSimulatorTools(server: McpServer) {
+    registerListSimulators(server);
+    registerListRuntimes(server);
+    registerListDeviceTypes(server);
+    registerBootSimulator(server);
+    registerShutdownSimulator(server);
+    registerCreateSimulator(server);
+    registerDeleteSimulator(server);
+    registerEraseSimulator(server);
+    registerInstallApp(server);
+    registerLaunchApp(server);
+    registerTerminateApp(server);
+    registerUninstallApp(server);
+    registerScreenshot(server);
+    registerOpenUrl(server);
+    registerSetLocation(server);
+    registerPushNotification(server);
+    registerAddMedia(server);
+    registerGetAppContainer(server);
+    registerSetStatusBar(server);
+    registerPrivacy(server);
+    registerGetLogs(server);
+}
