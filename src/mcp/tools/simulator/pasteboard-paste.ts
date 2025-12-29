@@ -4,28 +4,24 @@ import { Simulator } from '../../../programs/index.js';
 
 const inputSchema = z.object({
     deviceId: z.string().optional().default('booted').describe('Simulator UDID (defaults to booted simulator)'),
-    mediaPath: z.string().describe('Absolute path to the media file (photo or video)'),
 });
 
-export function registerAddMedia(server: McpServer) {
+export function registerPasteboardPaste(server: McpServer) {
     server.registerTool(
-        'simulator_add_media',
+        'simulator_pasteboard_paste',
         {
-            description: 'Add a photo or video to a simulator\'s photo library',
+            description: 'Get the contents of the pasteboard (clipboard) from a simulator',
             inputSchema,
         },
-        async ({ deviceId, mediaPath }) => {
+        async ({ deviceId }) => {
             try {
-                await Simulator.addMedia(deviceId, mediaPath);
+                const result = await Simulator.pasteFromPasteboard(deviceId);
 
                 return {
                     content: [
                         {
                             type: 'text' as const,
-                            text: JSON.stringify({
-                                success: true,
-                                message: `Media added to simulator ${deviceId}`,
-                            }, null, 2),
+                            text: JSON.stringify(result, null, 2),
                         },
                     ],
                 };

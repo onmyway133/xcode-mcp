@@ -3,7 +3,7 @@ import { z } from 'zod';
 import { Simulator } from '../../../programs/index.js';
 
 const inputSchema = z.object({
-    deviceId: z.string().describe('The UDID of the simulator to shutdown'),
+    deviceId: z.string().optional().default('booted').describe('Simulator UDID (defaults to booted simulator)'),
 });
 
 export function registerShutdownSimulator(server: McpServer) {

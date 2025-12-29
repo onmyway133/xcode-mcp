@@ -10,8 +10,10 @@ export interface StatusBarOptions {
 }
 
 export interface VideoRecordingOptions {
-    codec?: string;
-    mask?: string;
+    codec?: 'h264' | 'hevc';
+    mask?: 'ignored' | 'alpha' | 'black';
+    display?: 'internal' | 'external';
+    force?: boolean;
 }
 
 export type PrivacyAction = 'grant' | 'revoke' | 'reset';

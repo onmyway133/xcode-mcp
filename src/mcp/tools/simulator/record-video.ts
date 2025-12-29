@@ -4,28 +4,30 @@ import { Simulator } from '../../../programs/index.js';
 
 const inputSchema = z.object({
     deviceId: z.string().optional().default('booted').describe('Simulator UDID (defaults to booted simulator)'),
-    mediaPath: z.string().describe('Absolute path to the media file (photo or video)'),
+    outputPath: z.string().describe('Absolute path where the video will be saved (e.g., /path/to/recording.mov)'),
+    codec: z.enum(['h264', 'hevc']).optional().describe('Video codec (default: hevc)'),
+    force: z.boolean().optional().describe('Overwrite existing file if present'),
 });
 
-export function registerAddMedia(server: McpServer) {
+export function registerRecordVideo(server: McpServer) {
     server.registerTool(
-        'simulator_add_media',
+        'simulator_record_video',
         {
-            description: 'Add a photo or video to a simulator\'s photo library',
+            description: 'Start recording video from a simulator. Use simulator_stop_recording to stop.',
             inputSchema,
         },
-        async ({ deviceId, mediaPath }) => {
+        async ({ deviceId, outputPath, codec, force }) => {
             try {
-                await Simulator.addMedia(deviceId, mediaPath);
+                const result = await Simulator.startRecording(deviceId, outputPath, {
+                    codec,
+                    force,
+                });
 
                 return {
                     content: [
                         {
                             type: 'text' as const,
-                            text: JSON.stringify({
-                                success: true,
-                                message: `Media added to simulator ${deviceId}`,
-                            }, null, 2),
+                            text: JSON.stringify(result, null, 2),
                         },
                     ],
                 };

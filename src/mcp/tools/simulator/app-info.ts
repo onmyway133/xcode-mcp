@@ -4,19 +4,19 @@ import { Simulator } from '../../../programs/index.js';
 
 const inputSchema = z.object({
     deviceId: z.string().optional().default('booted').describe('Simulator UDID (defaults to booted simulator)'),
-    mediaPath: z.string().describe('Absolute path to the media file (photo or video)'),
+    bundleId: z.string().describe('The bundle identifier of the app (e.g., com.apple.mobilesafari)'),
 });
 
-export function registerAddMedia(server: McpServer) {
+export function registerAppInfo(server: McpServer) {
     server.registerTool(
-        'simulator_add_media',
+        'simulator_app_info',
         {
-            description: 'Add a photo or video to a simulator\'s photo library',
+            description: 'Get detailed information about an installed application on a simulator',
             inputSchema,
         },
-        async ({ deviceId, mediaPath }) => {
+        async ({ deviceId, bundleId }) => {
             try {
-                await Simulator.addMedia(deviceId, mediaPath);
+                const appInfo = await Simulator.getAppInfo(deviceId, bundleId);
 
                 return {
                     content: [
@@ -24,7 +24,7 @@ export function registerAddMedia(server: McpServer) {
                             type: 'text' as const,
                             text: JSON.stringify({
                                 success: true,
-                                message: `Media added to simulator ${deviceId}`,
+                                app: appInfo,
                             }, null, 2),
                         },
                     ],

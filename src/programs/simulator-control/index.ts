@@ -26,6 +26,7 @@ export {
     launchApp,
     terminateApp,
     getAppContainer,
+    openAppContainer,
     spawn,
 } from './app.js';
 
@@ -47,6 +48,41 @@ export {
     privacy,
     getLogs,
 } from './system.js';
+
+// Video recording (stateful)
+export {
+    startRecording,
+    stopRecording,
+    isRecording,
+    getRecordingInfo,
+} from './video.js';
+
+// UI settings
+export {
+    setAppearance,
+    getAppearance,
+    setContentSize,
+    getContentSize,
+    setIncreaseContrast,
+    getIncreaseContrast,
+} from './ui-settings.js';
+export type { AppearanceMode, ContentSize } from './ui-settings.js';
+
+// Pasteboard
+export {
+    copyToPasteboard,
+    pasteFromPasteboard,
+    syncPasteboard,
+} from './pasteboard.js';
+export type { SyncDirection } from './pasteboard.js';
+
+// Query functions
+export {
+    getBootedSimulator,
+    getBootedSimulators,
+    listInstalledApps,
+    getAppInfo,
+} from './query.js';
 
 // Types
 export * from './types.js';

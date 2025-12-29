@@ -2,21 +2,32 @@ import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { z } from 'zod';
 import { Simulator } from '../../../programs/index.js';
 
-const inputSchema = z.object({
-    deviceId: z.string().optional().default('booted').describe('Simulator UDID (defaults to booted simulator)'),
-    mediaPath: z.string().describe('Absolute path to the media file (photo or video)'),
-});
+const inputSchema = z.object({});
 
-export function registerAddMedia(server: McpServer) {
+export function registerGetBooted(server: McpServer) {
     server.registerTool(
-        'simulator_add_media',
+        'simulator_get_booted',
         {
-            description: 'Add a photo or video to a simulator\'s photo library',
+            description: 'Get the UDID of the currently booted simulator. Returns the first booted device if multiple are running.',
             inputSchema,
         },
-        async ({ deviceId, mediaPath }) => {
+        async () => {
             try {
-                await Simulator.addMedia(deviceId, mediaPath);
+                const deviceId = await Simulator.getBootedSimulator();
+
+                if (!deviceId) {
+                    return {
+                        content: [
+                            {
+                                type: 'text' as const,
+                                text: JSON.stringify({
+                                    success: false,
+                                    message: 'No simulator is currently booted',
+                                }, null, 2),
+                            },
+                        ],
+                    };
+                }
 
                 return {
                     content: [
@@ -24,7 +35,7 @@ export function registerAddMedia(server: McpServer) {
                             type: 'text' as const,
                             text: JSON.stringify({
                                 success: true,
-                                message: `Media added to simulator ${deviceId}`,
+                                deviceId,
                             }, null, 2),
                         },
                     ],

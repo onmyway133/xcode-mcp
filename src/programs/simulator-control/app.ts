@@ -106,6 +106,30 @@ export async function getAppContainer(
     return result.stdout.trim();
 }
 
+export async function openAppContainer(
+    deviceId: string,
+    bundleId: string,
+    containerType: AppContainerType = 'data'
+): Promise<{ success: boolean; path: string; message: string }> {
+    const containerPath = await getAppContainer(deviceId, bundleId, containerType);
+
+    const openResult = await CommandExecutor.execute(`open "${containerPath}"`);
+
+    if (openResult.exitCode !== 0) {
+        return {
+            success: false,
+            path: containerPath,
+            message: `Failed to open Finder: ${openResult.stderr}`,
+        };
+    }
+
+    return {
+        success: true,
+        path: containerPath,
+        message: `Opened ${containerType} container in Finder`,
+    };
+}
+
 export async function spawn(
     deviceId: string,
     command: string,

@@ -157,3 +157,41 @@ export interface CommandResult {
     stderr: string;
     exitCode: number;
 }
+
+// UI Settings Types
+export interface AppearanceResult {
+    success: boolean;
+    deviceId: string;
+    appearance: 'light' | 'dark';
+}
+
+export interface ContentSizeResult {
+    success: boolean;
+    deviceId: string;
+    size: string;
+}
+
+export interface IncreaseContrastResult {
+    success: boolean;
+    deviceId: string;
+    enabled: boolean;
+}
+
+// Pasteboard Types
+export interface PasteboardResult {
+    success: boolean;
+    deviceId: string;
+    content?: string;
+    message?: string;
+}
+
+// App Query Types
+export interface InstalledApp {
+    bundleId: string;
+    name: string;
+    version?: string;
+    shortVersion?: string;
+    path?: string;
+    dataContainer?: string;
+    type?: 'user' | 'system';
+}

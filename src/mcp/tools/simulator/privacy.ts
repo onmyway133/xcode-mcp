@@ -3,7 +3,7 @@ import { z } from 'zod';
 import { Simulator } from '../../../programs/index.js';
 
 const inputSchema = z.object({
-    deviceId: z.string().describe('The UDID of the simulator'),
+    deviceId: z.string().optional().default('booted').describe('Simulator UDID (defaults to booted simulator)'),
     action: z.enum(['grant', 'revoke', 'reset']).describe('The privacy action to perform'),
     service: z.string().describe('The privacy service (e.g., "all", "calendar", "camera", "contacts", "location", "microphone", "photos")'),
     bundleId: z.string().optional().describe('The bundle identifier of the app (required for grant/revoke)'),

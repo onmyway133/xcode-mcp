@@ -2,30 +2,42 @@ import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { z } from 'zod';
 import { Simulator } from '../../../programs/index.js';
 
+const contentSizes = [
+    'extra-small',
+    'small',
+    'medium',
+    'large',
+    'extra-large',
+    'extra-extra-large',
+    'extra-extra-extra-large',
+    'accessibility-medium',
+    'accessibility-large',
+    'accessibility-extra-large',
+    'accessibility-extra-extra-large',
+    'accessibility-extra-extra-extra-large',
+] as const;
+
 const inputSchema = z.object({
     deviceId: z.string().optional().default('booted').describe('Simulator UDID (defaults to booted simulator)'),
-    mediaPath: z.string().describe('Absolute path to the media file (photo or video)'),
+    size: z.enum(contentSizes).describe('Content size category to set'),
 });
 
-export function registerAddMedia(server: McpServer) {
+export function registerSetContentSize(server: McpServer) {
     server.registerTool(
-        'simulator_add_media',
+        'simulator_set_content_size',
         {
-            description: 'Add a photo or video to a simulator\'s photo library',
+            description: 'Set the preferred content size (accessibility text size) of a simulator',
             inputSchema,
         },
-        async ({ deviceId, mediaPath }) => {
+        async ({ deviceId, size }) => {
             try {
-                await Simulator.addMedia(deviceId, mediaPath);
+                const result = await Simulator.setContentSize(deviceId, size);
 
                 return {
                     content: [
                         {
                             type: 'text' as const,
-                            text: JSON.stringify({
-                                success: true,
-                                message: `Media added to simulator ${deviceId}`,
-                            }, null, 2),
+                            text: JSON.stringify(result, null, 2),
                         },
                     ],
                 };

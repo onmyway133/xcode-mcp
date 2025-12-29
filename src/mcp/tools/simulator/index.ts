@@ -17,9 +17,21 @@ import { registerSetLocation } from './set-location.js';
 import { registerPushNotification } from './push-notification.js';
 import { registerAddMedia } from './add-media.js';
 import { registerGetAppContainer } from './get-app-container.js';
+import { registerOpenAppContainer } from './open-app-container.js';
 import { registerSetStatusBar } from './set-status-bar.js';
 import { registerPrivacy } from './privacy.js';
 import { registerGetLogs } from './get-logs.js';
+import { registerRecordVideo } from './record-video.js';
+import { registerStopRecording } from './stop-recording.js';
+import { registerSetAppearance } from './set-appearance.js';
+import { registerSetContentSize } from './set-content-size.js';
+import { registerSetIncreaseContrast } from './set-increase-contrast.js';
+import { registerPasteboardCopy } from './pasteboard-copy.js';
+import { registerPasteboardPaste } from './pasteboard-paste.js';
+import { registerPasteboardSync } from './pasteboard-sync.js';
+import { registerGetBooted } from './get-booted.js';
+import { registerListApps } from './list-apps.js';
+import { registerAppInfo } from './app-info.js';
 
 export function registerSimulatorTools(server: McpServer) {
     registerListSimulators(server);
@@ -40,7 +52,19 @@ export function registerSimulatorTools(server: McpServer) {
     registerPushNotification(server);
     registerAddMedia(server);
     registerGetAppContainer(server);
+    registerOpenAppContainer(server);
     registerSetStatusBar(server);
     registerPrivacy(server);
     registerGetLogs(server);
+    registerRecordVideo(server);
+    registerStopRecording(server);
+    registerSetAppearance(server);
+    registerSetContentSize(server);
+    registerSetIncreaseContrast(server);
+    registerPasteboardCopy(server);
+    registerPasteboardPaste(server);
+    registerPasteboardSync(server);
+    registerGetBooted(server);
+    registerListApps(server);
+    registerAppInfo(server);
 }

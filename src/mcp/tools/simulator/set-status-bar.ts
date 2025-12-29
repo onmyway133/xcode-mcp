@@ -3,7 +3,7 @@ import { z } from 'zod';
 import { Simulator } from '../../../programs/index.js';
 
 const inputSchema = z.object({
-    deviceId: z.string().describe('The UDID of the simulator'),
+    deviceId: z.string().optional().default('booted').describe('Simulator UDID (defaults to booted simulator)'),
     time: z.string().optional().describe('Time to display (e.g., "9:41")'),
     dataNetwork: z.string().optional().describe('Data network type (e.g., "wifi", "3g", "4g", "lte", "5g")'),
     wifiMode: z.string().optional().describe('WiFi mode (e.g., "active", "searching", "failed")'),

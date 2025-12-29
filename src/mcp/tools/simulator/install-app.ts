@@ -3,7 +3,7 @@ import { z } from 'zod';
 import { Simulator } from '../../../programs/index.js';
 
 const inputSchema = z.object({
-    deviceId: z.string().describe('The UDID of the simulator'),
+    deviceId: z.string().optional().default('booted').describe('Simulator UDID (defaults to booted simulator)'),
     appPath: z.string().describe('Absolute path to the .app bundle'),
 });
 

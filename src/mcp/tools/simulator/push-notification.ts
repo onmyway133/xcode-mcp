@@ -3,7 +3,7 @@ import { z } from 'zod';
 import { Simulator } from '../../../programs/index.js';
 
 const inputSchema = z.object({
-    deviceId: z.string().describe('The UDID of the simulator'),
+    deviceId: z.string().optional().default('booted').describe('Simulator UDID (defaults to booted simulator)'),
     bundleId: z.string().describe('The bundle identifier of the app to receive the notification'),
     payload: z.record(z.string(), z.any()).describe('The notification payload (APNS format)'),
 });
