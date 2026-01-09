@@ -2,6 +2,8 @@
 
 MCP (Model Context Protocol) server for interacting with Xcode build tools, iOS Simulator, and Apple notarization services.
 
+![](images/banner.png)
+
 ## Installation
 
 ### Claude Code
