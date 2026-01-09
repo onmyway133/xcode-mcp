@@ -6,7 +6,7 @@ import { registerAllTools } from './mcp/tools/index.js';
 
 const server = new McpServer({
     name: 'xcode-mcp',
-    version: '1.0.1',
+    version: '1.0.2',
 });
 
 // Register all tools

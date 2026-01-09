@@ -1,18 +1,19 @@
 {
     "name": "@onmyway133/xcode-mcp",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "MCP server for interacting with Xcode build and simulator tools",
     "type": "module",
     "main": "dist/index.js",
     "bin": {
-        "xcode-mcp": "./dist/index.js"
+        "xcode-mcp": "dist/index.js"
     },
     "scripts": {
-        "build": "tsc",
+        "build": "bun build src/index.ts --outdir dist --target node --format esm --banner '#!/usr/bin/env node'",
+        "prepublishOnly": "bun run build",
         "start": "node dist/index.js",
-        "dev": "tsx src/index.ts",
-        "inspect": "pnpm dlx @modelcontextprotocol/inspector tsx src/index.ts",
-        "mcp:add": "claude mcp add xcode-mcp -- pnpm --dir=$PWD dlx tsx $PWD/src/index.ts",
+        "dev": "bun src/index.ts",
+        "inspect": "bunx @modelcontextprotocol/inspector bun src/index.ts",
+        "mcp:add": "claude mcp add xcode-mcp -- bun $PWD/src/index.ts",
         "mcp:remove": "claude mcp remove xcode-mcp",
         "typecheck": "tsc --noEmit",
         "lint": "eslint src/**/*.ts",

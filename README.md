@@ -4,14 +4,22 @@ MCP (Model Context Protocol) server for interacting with Xcode build tools, iOS 
 
 ## Installation
 
+### Claude Code
+
+```bash
+claude mcp add xcode-mcp -- npx @onmyway133/xcode-mcp
+```
+
+### Manual Configuration
+
 Add to your MCP config:
 
 ```json
 {
   "mcpServers": {
     "xcode-mcp": {
-      "command": "pnpm",
-      "args": ["dlx", "@onmyway133/xcode-mcp"]
+      "command": "npx",
+      "args": ["@onmyway133/xcode-mcp"]
     }
   }
 }
